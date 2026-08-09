@@ -1,0 +1,29 @@
+@startuml
+title Stock Simulator UML Diagram
+
+interface StockService {
+    + fetchPrice(symbol: String): double
+    + fetchInfo(symbol: String): String
+}
+
+class AlphaVantageStockService {
+    - apiKey: String
+    + AlphaVantageStockService(apiKey: String)
+    + fetchPrice(symbol: String): double
+    + fetchInfo(symbol: String): String
+}
+
+class StockSimulatorGame {
+    - balance: double
+    - stockService: StockService
+    + start(primaryStage: Stage): void
+    + createTradePane(): VBox
+    + createBetPane(): VBox
+    + showAlert(title: String, message: String): void
+    + askText(prompt: String): String
+}
+
+StockService <|.. AlphaVantageStockService
+StockSimulatorGame --> StockService : uses
+
+@enduml
